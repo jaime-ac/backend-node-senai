@@ -26,3 +26,7 @@ async function connect() {
 }
 
 connect();
+
+//CRIAÇÃO DA FUNÇÃO PARA INSERIR DADOS NA TABELA
+
+//EXPORTAÇÃO DA FUNÇÃO
