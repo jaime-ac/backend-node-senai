@@ -9,14 +9,20 @@ async function connect() {
         host: process.env.HOST,
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
+        dialect: process.env.DB_DIALECT,
         port: process.env.DB_PORT
     
     });
     
-    const result = await pool.query('SELECT NOW()')
-    console.log(result.rows)
-    // console.log('Conexão ao banco de dados feito')
-    
+    // const result = await pool.query('SELECT NOW()') //pega a hora e a data atual da conexão com o servidor
+    // console.log(result.rows)
+
+    const client = await pool.connect();
+    console.log('O Pool de conexão foi criado!')
+    client.release();
+
+
+    return pool.connect();
 }
 
 connect();
