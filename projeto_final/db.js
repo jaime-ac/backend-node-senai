@@ -28,5 +28,23 @@ async function connect() {
 connect();
 
 //CRIAÇÃO DA FUNÇÃO PARA INSERIR DADOS NA TABELA
+async function insertCustomer(costumer) {
+
+    //primeira coisa a fazer é garantir a conexão com o banco de dados
+    const client = await connect();
+
+    //consulta SQL
+    const sql = "INSERT INTO clientes (cpf, nome, email, idade, profissao) VALUES ($1, $2, $3, $4, $5)";
+
+    //acessando valores que vão ser inseridos
+    const values = [costumer.cpf, costumer.nome, costumer.email, costumer.idade, costumer.profissao];
+
+    //enviando os dados para o banco
+    await client.query(sql, values);
+ 
+};
 
 //EXPORTAÇÃO DA FUNÇÃO
+module.exports = { 
+    insertCustomer
+};
