@@ -44,7 +44,50 @@ async function insertCustomer(costumer) {
  
 };
 
+//CRIAÇÃO DA FUNÇÃO PARA LISTAR USUÁRIOS
+async function listCustomers() {
+
+    const client = await connect();
+
+    const sql = "SELECT * FROM clientes";
+
+    const result = await client.query(sql);
+
+    return result.rows;
+    
+};
+
+//CRIAÇÃO DA FUNÇÃO PARA LISTAR UM USUÁRIO ESPECÍFICO
+async function listCustomer(cpf) {
+
+    const client = await connect();
+
+    const sql = "SELECT * FROM clientes WHERE cpf = $1";
+    const value = [cpf]
+
+    const result = await client.query(sql, value);
+
+    return result.rows;
+    
+}
+
+//CRIAÇÃO DA FUNÇÃO PARA ATUALIZAR DADOS DE UM CLIENTE
+async function updateCustomer(cpf, customer) {
+
+    const client = await connect();
+
+    const sql = "UPDATE clientes SET  nome=$1, email=$2, idade=$3, profissao=$4 WHERE cpf=$5";
+
+    const values = [customer.nome, customer.email, customer.idade, customer.profissao, cpf];
+
+    client.query(sql, values);
+    
+}
+
 //EXPORTAÇÃO DA FUNÇÃO
 module.exports = { 
-    insertCustomer
+    insertCustomer,
+    listCustomers,
+    listCustomer,
+    updateCustomer
 };
