@@ -52,6 +52,15 @@ app.put("/clientes/:cpf", async (req, res) => {
 
 });
 
+//ACESSAR A ROTA E DELETAR UM CLIENTE
+app.delete("/clientes/:cpf", async (req, res) => {
+
+    const { cpf } = req.params;
+
+    await db.deleteCustomer(cpf);
+
+    res.sendStatus(204);
+});
 
 app.listen(port);
 

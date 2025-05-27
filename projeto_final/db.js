@@ -84,10 +84,24 @@ async function updateCustomer(cpf, customer) {
     
 }
 
+//CRIAÇÃO DA FUNÇÃO PARA DELETAR UM CLIENTE DO BANCO DE DADOS
+async function deleteCustomer(cpf) {
+    
+    const client = await connect();
+
+    const sql = "DELETE FROM clientes WHERE cpf=$1";
+    const values = [cpf];
+
+    await client.query(sql, values);
+
+    console.log("Cliente deletado do banco de dados com sucesso!")
+}
+
 //EXPORTAÇÃO DA FUNÇÃO
 module.exports = { 
     insertCustomer,
     listCustomers,
     listCustomer,
-    updateCustomer
+    updateCustomer,
+    deleteCustomer
 };
